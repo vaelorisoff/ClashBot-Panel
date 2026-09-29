@@ -1,3 +1,813 @@
 {
-  "tables": []
+  "tables": [
+    {
+      "id": "t7cFZjB2yEs",
+      "sdkName": "profiles",
+      "name": "Profiles",
+      "primaryFieldId": "ftCwjCCymbE",
+      "fields": [
+        {
+          "id": "ftCwjCCymbE",
+          "sdkName": "username",
+          "definition": {
+            "name": "Username",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fwcmVKEDsgC",
+          "sdkName": "displayName",
+          "definition": {
+            "name": "Display Name",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "f2JGvRuMvYk",
+          "sdkName": "user",
+          "definition": {
+            "name": "User",
+            "type": "user",
+            "template": {
+              "internalOnly": false,
+              "allowMultiple": false,
+              "deleteRowWhenUserDeleted": true
+            }
+          }
+        },
+        {
+          "id": "fvVZNdib7Fw",
+          "sdkName": "avatarUrl",
+          "definition": {
+            "name": "Avatar URL",
+            "type": "url",
+            "template": {}
+          }
+        },
+        {
+          "id": "f2jegwabth8",
+          "sdkName": "bio",
+          "definition": {
+            "name": "Bio",
+            "type": "long_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "f8uHYs2cA5Q",
+          "sdkName": "role",
+          "definition": {
+            "name": "Role",
+            "type": "single_select",
+            "template": {
+              "options": [
+                {
+                  "value": "vBh9",
+                  "label": "Utilisateur",
+                  "color": "gray"
+                },
+                {
+                  "value": "b8e6",
+                  "label": "Administrateur",
+                  "color": "orange"
+                }
+              ],
+              "disableColors": false
+            }
+          }
+        },
+        {
+          "id": "fhfiiH8Drv9",
+          "sdkName": "createdAt",
+          "definition": {
+            "name": "Created At",
+            "type": "created_at",
+            "template": {
+              "timezone": "",
+              "dateFormat": "local",
+              "timeFormat": "12h",
+              "displayTimeZone": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tcqaRi7dBBZ",
+      "sdkName": "categories",
+      "name": "Categories",
+      "primaryFieldId": "fb6FNJ7vDxd",
+      "fields": [
+        {
+          "id": "fb6FNJ7vDxd",
+          "sdkName": "name",
+          "definition": {
+            "name": "Name",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "f9fpKzQYdCy",
+          "sdkName": "slug",
+          "definition": {
+            "name": "Slug",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "f6fow3zQTgn",
+          "sdkName": "sortOrder",
+          "definition": {
+            "name": "Sort Order",
+            "type": "number",
+            "template": {
+              "numberFormat": "local",
+              "decimalPlaces": 1
+            }
+          }
+        },
+        {
+          "id": "faDmb8zjmpB",
+          "sdkName": "videos",
+          "definition": {
+            "name": "Videos",
+            "type": "linked_record",
+            "template": {
+              "tableId": "t4WYsG54kbR",
+              "isInverse": true,
+              "allowMultiple": true,
+              "inverseFieldId": "f6Gx4mb348P"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "t4WYsG54kbR",
+      "sdkName": "videos",
+      "name": "Videos",
+      "primaryFieldId": "ffobCbidVoB",
+      "fields": [
+        {
+          "id": "ffobCbidVoB",
+          "sdkName": "title",
+          "definition": {
+            "name": "Title",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fw6MGmt3sJR",
+          "sdkName": "youTubeId",
+          "definition": {
+            "name": "YouTube ID",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "frfPSzWwkQa",
+          "sdkName": "creatorName",
+          "definition": {
+            "name": "Creator Name",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "f3gnigvdTbP",
+          "sdkName": "uploader",
+          "definition": {
+            "name": "Uploader",
+            "type": "user",
+            "template": {
+              "internalOnly": false,
+              "allowMultiple": false,
+              "deleteRowWhenUserDeleted": false
+            }
+          }
+        },
+        {
+          "id": "fvQ3UcDsXvm",
+          "sdkName": "thumbnailUrl",
+          "definition": {
+            "name": "Thumbnail URL",
+            "type": "url",
+            "template": {}
+          }
+        },
+        {
+          "id": "f6Gx4mb348P",
+          "sdkName": "category",
+          "definition": {
+            "name": "Category",
+            "type": "linked_record",
+            "template": {
+              "tableId": "tcqaRi7dBBZ",
+              "isInverse": false,
+              "allowMultiple": true,
+              "inverseFieldId": "faDmb8zjmpB"
+            }
+          }
+        },
+        {
+          "id": "fcJvAU6RkQK",
+          "sdkName": "description",
+          "definition": {
+            "name": "Description",
+            "type": "long_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fvwyKmo738d",
+          "sdkName": "status",
+          "definition": {
+            "name": "Status",
+            "type": "single_select",
+            "template": {
+              "options": [
+                {
+                  "value": "vKha",
+                  "label": "Publiée",
+                  "color": "green"
+                },
+                {
+                  "value": "hLAq",
+                  "label": "Masquée",
+                  "color": "red"
+                }
+              ],
+              "disableColors": false
+            }
+          }
+        },
+        {
+          "id": "fjQJj6K1ZNM",
+          "sdkName": "views",
+          "definition": {
+            "name": "Views",
+            "type": "number",
+            "template": {
+              "numberFormat": "local",
+              "decimalPlaces": 1
+            }
+          }
+        },
+        {
+          "id": "fwKQ7pPM6tK",
+          "sdkName": "createdAt",
+          "definition": {
+            "name": "Created At",
+            "type": "created_at",
+            "template": {
+              "timezone": "",
+              "dateFormat": "local",
+              "timeFormat": "12h",
+              "displayTimeZone": false
+            }
+          }
+        },
+        {
+          "id": "fabvYWbt9nm",
+          "sdkName": "likes",
+          "definition": {
+            "name": "Likes",
+            "type": "linked_record",
+            "template": {
+              "tableId": "t9wSHbvqcfa",
+              "isInverse": true,
+              "allowMultiple": true,
+              "inverseFieldId": "fmgKyxQ5UJ9"
+            }
+          }
+        },
+        {
+          "id": "fbV1MNKHpv9",
+          "sdkName": "comments",
+          "definition": {
+            "name": "Comments",
+            "type": "linked_record",
+            "template": {
+              "tableId": "t5LJkf99o9s",
+              "isInverse": true,
+              "allowMultiple": true,
+              "inverseFieldId": "fcYJQmTcnex"
+            }
+          }
+        },
+        {
+          "id": "f3T45bSomq1",
+          "sdkName": "playlistItems",
+          "definition": {
+            "name": "Playlist Items",
+            "type": "linked_record",
+            "template": {
+              "tableId": "tc7NnPj6rTg",
+              "isInverse": true,
+              "allowMultiple": true,
+              "inverseFieldId": "fiABqAx73JN"
+            }
+          }
+        },
+        {
+          "id": "f1rKSSNob9K",
+          "sdkName": "favorites",
+          "definition": {
+            "name": "Favorites",
+            "type": "linked_record",
+            "template": {
+              "tableId": "tqpH698bah9",
+              "isInverse": true,
+              "allowMultiple": true,
+              "inverseFieldId": "fkbMPn1HKcz"
+            }
+          }
+        },
+        {
+          "id": "fqtgejbbRyT",
+          "sdkName": "history",
+          "definition": {
+            "name": "History",
+            "type": "linked_record",
+            "template": {
+              "tableId": "tmkhNzq14KN",
+              "isInverse": true,
+              "allowMultiple": true,
+              "inverseFieldId": "fjGNmvgq7TG"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "t9wSHbvqcfa",
+      "sdkName": "likes",
+      "name": "Likes",
+      "primaryFieldId": "fcQGyjQbX2c",
+      "fields": [
+        {
+          "id": "fcQGyjQbX2c",
+          "sdkName": "likeNumber",
+          "definition": {
+            "name": "Like Number",
+            "type": "autonumber",
+            "template": {}
+          }
+        },
+        {
+          "id": "fpd8oc4fx8j",
+          "sdkName": "user",
+          "definition": {
+            "name": "User",
+            "type": "user",
+            "template": {
+              "internalOnly": false,
+              "allowMultiple": false,
+              "deleteRowWhenUserDeleted": false
+            }
+          }
+        },
+        {
+          "id": "fmgKyxQ5UJ9",
+          "sdkName": "video",
+          "definition": {
+            "name": "Video",
+            "type": "linked_record",
+            "template": {
+              "tableId": "t4WYsG54kbR",
+              "isInverse": false,
+              "allowMultiple": true,
+              "inverseFieldId": "fabvYWbt9nm"
+            }
+          }
+        },
+        {
+          "id": "fjTHF1KZMtg",
+          "sdkName": "createdAt",
+          "definition": {
+            "name": "Created At",
+            "type": "created_at",
+            "template": {
+              "timezone": "",
+              "dateFormat": "local",
+              "timeFormat": "12h",
+              "displayTimeZone": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "t5LJkf99o9s",
+      "sdkName": "comments",
+      "name": "Comments",
+      "primaryFieldId": "feXoKhDt2yp",
+      "fields": [
+        {
+          "id": "feXoKhDt2yp",
+          "sdkName": "content",
+          "definition": {
+            "name": "Content",
+            "type": "long_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "fiY1HKGb6gY",
+          "sdkName": "user",
+          "definition": {
+            "name": "User",
+            "type": "user",
+            "template": {
+              "internalOnly": false,
+              "allowMultiple": false,
+              "deleteRowWhenUserDeleted": false
+            }
+          }
+        },
+        {
+          "id": "fcYJQmTcnex",
+          "sdkName": "video",
+          "definition": {
+            "name": "Video",
+            "type": "linked_record",
+            "template": {
+              "tableId": "t4WYsG54kbR",
+              "isInverse": false,
+              "allowMultiple": true,
+              "inverseFieldId": "fbV1MNKHpv9"
+            }
+          }
+        },
+        {
+          "id": "fb6FRrS9tPv",
+          "sdkName": "createdAt",
+          "definition": {
+            "name": "Created At",
+            "type": "created_at",
+            "template": {
+              "timezone": "",
+              "dateFormat": "local",
+              "timeFormat": "12h",
+              "displayTimeZone": false
+            }
+          }
+        },
+        {
+          "id": "foeHERXBiGX",
+          "sdkName": "updatedAt",
+          "definition": {
+            "name": "Updated At",
+            "type": "updated_at",
+            "template": {
+              "timezone": "",
+              "dateFormat": "local",
+              "timeFormat": "12h",
+              "displayTimeZone": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tghv3dsTbK9",
+      "sdkName": "playlists",
+      "name": "Playlists",
+      "primaryFieldId": "fwJ36QTWABg",
+      "fields": [
+        {
+          "id": "fwJ36QTWABg",
+          "sdkName": "name",
+          "definition": {
+            "name": "Name",
+            "type": "single_line_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "frNdb4hqy6a",
+          "sdkName": "description",
+          "definition": {
+            "name": "Description",
+            "type": "long_text",
+            "template": {}
+          }
+        },
+        {
+          "id": "ffVoG6iwJrE",
+          "sdkName": "owner",
+          "definition": {
+            "name": "Owner",
+            "type": "user",
+            "template": {
+              "internalOnly": false,
+              "allowMultiple": false,
+              "deleteRowWhenUserDeleted": false
+            }
+          }
+        },
+        {
+          "id": "f6pquWXDahV",
+          "sdkName": "visibility",
+          "definition": {
+            "name": "Visibility",
+            "type": "single_select",
+            "template": {
+              "options": [
+                {
+                  "value": "bFis",
+                  "label": "Public",
+                  "color": "green"
+                },
+                {
+                  "value": "wvss",
+                  "label": "Privé",
+                  "color": "gray"
+                }
+              ],
+              "disableColors": false
+            }
+          }
+        },
+        {
+          "id": "fi37jVGBFky",
+          "sdkName": "createdAt",
+          "definition": {
+            "name": "Created At",
+            "type": "created_at",
+            "template": {
+              "timezone": "",
+              "dateFormat": "local",
+              "timeFormat": "12h",
+              "displayTimeZone": false
+            }
+          }
+        },
+        {
+          "id": "fwpWvy7xsf4",
+          "sdkName": "playlistItems",
+          "definition": {
+            "name": "Playlist Items",
+            "type": "linked_record",
+            "template": {
+              "tableId": "tc7NnPj6rTg",
+              "isInverse": true,
+              "allowMultiple": true,
+              "inverseFieldId": "f8UtG7Q7WVG"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tc7NnPj6rTg",
+      "sdkName": "playlistItems",
+      "name": "Playlist Items",
+      "primaryFieldId": "f11RWEDbWQu",
+      "fields": [
+        {
+          "id": "f11RWEDbWQu",
+          "sdkName": "itemNumber",
+          "definition": {
+            "name": "Item Number",
+            "type": "autonumber",
+            "template": {}
+          }
+        },
+        {
+          "id": "f8UtG7Q7WVG",
+          "sdkName": "playlist",
+          "definition": {
+            "name": "Playlist",
+            "type": "linked_record",
+            "template": {
+              "tableId": "tghv3dsTbK9",
+              "isInverse": false,
+              "allowMultiple": true,
+              "inverseFieldId": "fwpWvy7xsf4"
+            }
+          }
+        },
+        {
+          "id": "fiABqAx73JN",
+          "sdkName": "video",
+          "definition": {
+            "name": "Video",
+            "type": "linked_record",
+            "template": {
+              "tableId": "t4WYsG54kbR",
+              "isInverse": false,
+              "allowMultiple": true,
+              "inverseFieldId": "f3T45bSomq1"
+            }
+          }
+        },
+        {
+          "id": "fsqPP1Qbz54",
+          "sdkName": "position",
+          "definition": {
+            "name": "Position",
+            "type": "number",
+            "template": {
+              "numberFormat": "local",
+              "decimalPlaces": 1
+            }
+          }
+        },
+        {
+          "id": "fnMYuUNS2fT",
+          "sdkName": "createdAt",
+          "definition": {
+            "name": "Created At",
+            "type": "created_at",
+            "template": {
+              "timezone": "",
+              "dateFormat": "local",
+              "timeFormat": "12h",
+              "displayTimeZone": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tqpH698bah9",
+      "sdkName": "favorites",
+      "name": "Favorites",
+      "primaryFieldId": "f4fJVVnxfcE",
+      "fields": [
+        {
+          "id": "f4fJVVnxfcE",
+          "sdkName": "favoriteNumber",
+          "definition": {
+            "name": "Favorite Number",
+            "type": "autonumber",
+            "template": {}
+          }
+        },
+        {
+          "id": "f48Uu3NxRbF",
+          "sdkName": "user",
+          "definition": {
+            "name": "User",
+            "type": "user",
+            "template": {
+              "internalOnly": false,
+              "allowMultiple": false,
+              "deleteRowWhenUserDeleted": false
+            }
+          }
+        },
+        {
+          "id": "fkbMPn1HKcz",
+          "sdkName": "video",
+          "definition": {
+            "name": "Video",
+            "type": "linked_record",
+            "template": {
+              "tableId": "t4WYsG54kbR",
+              "isInverse": false,
+              "allowMultiple": true,
+              "inverseFieldId": "f1rKSSNob9K"
+            }
+          }
+        },
+        {
+          "id": "fuhytXK2qsu",
+          "sdkName": "createdAt",
+          "definition": {
+            "name": "Created At",
+            "type": "created_at",
+            "template": {
+              "timezone": "",
+              "dateFormat": "local",
+              "timeFormat": "12h",
+              "displayTimeZone": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tnpyxc3Rh3T",
+      "sdkName": "subscriptions",
+      "name": "Subscriptions",
+      "primaryFieldId": "ftiG39GwhDX",
+      "fields": [
+        {
+          "id": "ftiG39GwhDX",
+          "sdkName": "subscriptionNumber",
+          "definition": {
+            "name": "Subscription Number",
+            "type": "autonumber",
+            "template": {}
+          }
+        },
+        {
+          "id": "futGQaabJZ8",
+          "sdkName": "follower",
+          "definition": {
+            "name": "Follower",
+            "type": "user",
+            "template": {
+              "internalOnly": false,
+              "allowMultiple": false,
+              "deleteRowWhenUserDeleted": false
+            }
+          }
+        },
+        {
+          "id": "fws1a4T9Xn8",
+          "sdkName": "creator",
+          "definition": {
+            "name": "Creator",
+            "type": "user",
+            "template": {
+              "internalOnly": false,
+              "allowMultiple": false,
+              "deleteRowWhenUserDeleted": false
+            }
+          }
+        },
+        {
+          "id": "fvLJTaGt4ij",
+          "sdkName": "createdAt",
+          "definition": {
+            "name": "Created At",
+            "type": "created_at",
+            "template": {
+              "timezone": "",
+              "dateFormat": "local",
+              "timeFormat": "12h",
+              "displayTimeZone": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tmkhNzq14KN",
+      "sdkName": "history",
+      "name": "History",
+      "primaryFieldId": "ft7ERKCm3Nn",
+      "fields": [
+        {
+          "id": "ft7ERKCm3Nn",
+          "sdkName": "entryNumber",
+          "definition": {
+            "name": "Entry Number",
+            "type": "autonumber",
+            "template": {}
+          }
+        },
+        {
+          "id": "fnZ8HA7qB1o",
+          "sdkName": "user",
+          "definition": {
+            "name": "User",
+            "type": "user",
+            "template": {
+              "internalOnly": false,
+              "allowMultiple": false,
+              "deleteRowWhenUserDeleted": false
+            }
+          }
+        },
+        {
+          "id": "fjGNmvgq7TG",
+          "sdkName": "video",
+          "definition": {
+            "name": "Video",
+            "type": "linked_record",
+            "template": {
+              "tableId": "t4WYsG54kbR",
+              "isInverse": false,
+              "allowMultiple": true,
+              "inverseFieldId": "fqtgejbbRyT"
+            }
+          }
+        },
+        {
+          "id": "fnTDjCtKKc8",
+          "sdkName": "watchedAt",
+          "definition": {
+            "name": "Watched At",
+            "type": "datetime",
+            "template": {
+              "timezone": "",
+              "dateFormat": "local",
+              "timeFormat": "12h",
+              "displayTimeZone": false
+            }
+          }
+        }
+      ]
+    }
+  ]
 }
