@@ -34,6 +34,7 @@ export default createEndpoint({
     creatorName: z.string().optional(),
     categoryId: z.string().optional(),
     thumbnailUrl: z.string().optional(),
+    videoFileUrl: z.string().optional(),
   }),
   outputSchema: z.object({
     ok: z.boolean(),
@@ -43,7 +44,7 @@ export default createEndpoint({
     playlists: z.array(z.object({ id: z.string(), name: z.string(), visibility: z.string(), contains: z.boolean() })).optional(),
     video: z.object({
       id: z.string(), youTubeId: z.string(), title: z.string(), creatorName: z.string(), categoryId: z.string().nullable(),
-      thumbnailUrl: z.string(), description: z.string(),
+      thumbnailUrl: z.string(), description: z.string(), videoFileUrl: z.string(),
     }).optional(),
   }),
   execute: async ({ input, context }) => {
@@ -195,16 +196,19 @@ export default createEndpoint({
           ok: true,
           video: {
             id: v.id, youTubeId: v.youTubeId ?? '', title: v.title ?? '', creatorName: v.creatorName ?? '',
-            categoryId: one(v.category) ?? null, thumbnailUrl: v.thumbnailUrl ?? '', description: v.description ?? '',
+            categoryId: one(v.category) ?? null, thumbnailUrl: v.thumbnailUrl ?? '', description: v.description ?? '', videoFileUrl: v.videoFileUrl ?? '',
           },
         };
       }
       case 'saveVideo': {
-        const ytId = extractYouTubeId(need(input.youtube, 'Lien YouTube'));
-        if (!ytId) throw bad('Lien ou identifiant YouTube invalide.');
+        const file = input.videoFileUrl?.trim() || null;
+        const ytId = input.youtube?.trim() ? extractYouTubeId(input.youtube) : null;
+        if (input.youtube?.trim() && !ytId) throw bad('Lien ou identifiant YouTube invalide.');
+        if (!ytId && !file) throw bad('Ajoutez un fichier vidéo ou un lien YouTube.');
         const record = {
           title: need(input.title?.trim(), 'Titre').slice(0, 200),
           youTubeId: ytId,
+          videoFileUrl: file,
           creatorName: need(input.creatorName?.trim(), 'Créateur').slice(0, 120),
           category: input.categoryId ? [input.categoryId] : null,
           thumbnailUrl: input.thumbnailUrl?.trim() || null,

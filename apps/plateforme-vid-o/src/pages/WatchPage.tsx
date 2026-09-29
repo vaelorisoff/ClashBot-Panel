@@ -27,6 +27,17 @@ function ActionButton({ active, onClick, icon, label }: { active?: boolean; onCl
   );
 }
 
+function StandardInfo({ title, hasYouTube }: { title: string; hasYouTube: boolean }) {
+  const rows = [['Hébergé par', 'Nexia'], ['En lien avec', 'Astreyon Records'], ...(hasYouTube ? [['Source', 'YouTube']] : []), ['Titre', title]];
+  return (
+    <dl className="grid gap-1.5 rounded-xl border border-border/60 bg-background/40 p-4 text-sm">
+      {rows.map(([k, val]) => (
+        <div key={k} className="flex gap-2"><dt className="shrink-0 text-muted-foreground">{k} :</dt><dd className="min-w-0 break-words font-medium">{val}</dd></div>
+      ))}
+    </dl>
+  );
+}
+
 function VideoStage({ video }: { video: PlayerVideo }) {
   const { current, play, setAnchor } = usePlayer();
   const ref = useRef<HTMLDivElement>(null);
@@ -39,7 +50,7 @@ function VideoStage({ video }: { video: PlayerVideo }) {
     <div ref={ref} className="relative aspect-video overflow-hidden rounded-2xl bg-black shadow-2xl ring-1 ring-border/60">
       {!active && (
         <button onClick={() => play(video)} aria-label={`Lire ${video.title}`} className="group absolute inset-0 h-full w-full cursor-pointer focus-visible:outline-none">
-          <img src={`https://i.ytimg.com/vi/${video.youTubeId}/maxresdefault.jpg`} onError={(e) => { e.currentTarget.src = video.thumbnailUrl; }}
+          <img src={video.youTubeId ? `https://i.ytimg.com/vi/${video.youTubeId}/maxresdefault.jpg` : video.thumbnailUrl} onError={(e) => { if (e.currentTarget.src !== video.thumbnailUrl) e.currentTarget.src = video.thumbnailUrl; }}
             alt="" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]" />
           <span className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/20" />
           <span className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-2xl shadow-primary/40 transition group-hover:scale-110">
@@ -130,6 +141,7 @@ export default function WatchPage() {
         <div className="space-y-4 rounded-2xl border border-border/60 bg-card/70 p-5">
           <p className="text-sm"><span className="text-muted-foreground">Créateur original :</span> <span className="font-semibold">{v.creatorName}</span></p>
           {v.description && <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">{v.description}</p>}
+          <StandardInfo title={v.title} hasYouTube={!!v.youTubeId} />
           <p className="text-xs text-muted-foreground/70">Les J'aime et commentaires affichés ici sont propres à {SITE_NAME}.</p>
           {canManage && (
             <div className="flex gap-2 border-t border-border/60 pt-4">

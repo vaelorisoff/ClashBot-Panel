@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { Pause, Play, X } from 'lucide-react';
 import { cn } from '@project/components/lib/utils';
 
-export type PlayerVideo = { id: string; youTubeId: string; title: string; creatorName: string; thumbnailUrl: string };
+export type PlayerVideo = { id: string; youTubeId: string; title: string; creatorName: string; thumbnailUrl: string; videoFileUrl?: string | null };
 
 type YTPlayer = { playVideo(): void; pauseVideo(): void; loadVideoById(id: string): void; destroy(): void };
+type Engine = { play(): void; pause(): void; destroy(): void };
 declare global {
   interface Window {
     YT?: { Player: new (el: HTMLElement, opts: unknown) => YTPlayer; PlayerState: { PLAYING: number } };
@@ -41,24 +42,43 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const [anchor, setAnchorState] = useState<{ id: string; el: HTMLElement } | null>(null);
   const [rect, setRect] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
   const mountRef = useRef<HTMLDivElement>(null);
-  const player = useRef<YTPlayer | null>(null);
+  const player = useRef<Engine | null>(null);
+
+  const startFile = useCallback((v: PlayerVideo) => {
+    const el = document.createElement('video');
+    el.src = v.videoFileUrl ?? '';
+    el.controls = true; el.autoplay = true; el.playsInline = true;
+    el.poster = v.thumbnailUrl;
+    el.className = 'h-full w-full bg-black object-contain';
+    el.onplay = () => setPlaying(true);
+    el.onpause = () => setPlaying(false);
+    mountRef.current?.replaceChildren(el);
+    el.play().catch(() => undefined);
+    player.current = { play: () => el.play(), pause: () => el.pause(), destroy: () => { el.pause(); el.remove(); } };
+  }, []);
 
   const play = useCallback(async (v: PlayerVideo) => {
+    player.current?.destroy();
+    player.current = null;
     setCurrent(v);
-    if (player.current) { player.current.loadVideoById(v.youTubeId); return; }
+    setPlaying(false);
+    if (!v.youTubeId) { startFile(v); return; }
     await loadApi();
     const el = document.createElement('div');
     mountRef.current?.replaceChildren(el);
-    player.current = new window.YT!.Player(el, {
+    const yt = new window.YT!.Player(el, {
       videoId: v.youTubeId,
       width: '100%', height: '100%',
       playerVars: { autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1 },
       events: {
         onReady: (e: { target: YTPlayer }) => e.target.playVideo(),
         onStateChange: (e: { data: number }) => setPlaying(e.data === window.YT!.PlayerState.PLAYING),
+        // Source unavailable on YouTube: continue with the creator's backup copy stored on Nexia.
+        onError: () => { if (v.videoFileUrl) { yt.destroy(); startFile(v); } },
       },
     });
-  }, []);
+    player.current = { play: () => yt.playVideo(), pause: () => yt.pauseVideo(), destroy: () => yt.destroy() };
+  }, [startFile]);
 
   const close = () => {
     player.current?.destroy();
@@ -110,7 +130,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
               </div>
               <button
                 aria-label={playing ? 'Pause' : 'Lecture'}
-                onClick={(e) => { e.stopPropagation(); if (playing) player.current?.pauseVideo(); else player.current?.playVideo(); }}
+                onClick={(e) => { e.stopPropagation(); if (playing) player.current?.pause(); else player.current?.play(); }}
                 className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition active:scale-95"
               >
                 {playing ? <Pause className="h-4 w-4 fill-current" /> : <Play className="ml-0.5 h-4 w-4 fill-current" />}

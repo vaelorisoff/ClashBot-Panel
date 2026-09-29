@@ -11,6 +11,7 @@ export const videoCardSchema = z.object({
   youTubeId: z.string(),
   creatorName: z.string(),
   thumbnailUrl: z.string(),
+  videoFileUrl: z.string().nullable(),
   categoryName: z.string().nullable(),
   categorySlug: z.string().nullable(),
   views: z.number(),
@@ -36,7 +37,7 @@ export const profileSchema = z.object({
 
 // Base SELECT for a video card. Append WHERE/ORDER/LIMIT.
 export const VIDEO_SELECT = `
-  SELECT v.id, v."title", v."youTubeId", v."creatorName", v."thumbnailUrl",
+  SELECT v.id, v."title", v."youTubeId", v."creatorName", v."thumbnailUrl", v."videoFileUrl",
     COALESCE(v."views", 0) AS "views", v.created_at AS "createdAt",
     v."uploader"->>0 AS "uploaderId",
     c."name" AS "categoryName", c."slug" AS "categorySlug",
@@ -59,7 +60,8 @@ export function mapVideo(r: Record<string, unknown>): VideoCard {
     title: s(r.title),
     youTubeId: yt,
     creatorName: s(r.creatorName),
-    thumbnailUrl: s(r.thumbnailUrl) || `https://i.ytimg.com/vi/${yt}/hqdefault.jpg`,
+    thumbnailUrl: s(r.thumbnailUrl) || (yt ? `https://i.ytimg.com/vi/${yt}/hqdefault.jpg` : ''),
+    videoFileUrl: r.videoFileUrl ? s(r.videoFileUrl) : null,
     categoryName: r.categoryName ? s(r.categoryName) : null,
     categorySlug: r.categorySlug ? s(r.categorySlug) : null,
     views: Number(r.views ?? 0),

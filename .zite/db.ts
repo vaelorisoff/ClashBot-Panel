@@ -164,6 +164,7 @@ export type VideosRecordType = {
   favorites?: string | string[];
   /** Links to history ("History"). "History" */
   history?: string | string[];
+  videoFileUrl?: string;
 };
 
 /** What you may write when creating or updating a record in the "Videos" table. */
@@ -182,6 +183,7 @@ export type VideosRecordInput = {
   playlistItems: string | string[] | null;
   favorites: string | string[] | null;
   history: string | string[] | null;
+  videoFileUrl: string | null;
 };
 
 /** A record in the "Likes" table, as it is read back. */

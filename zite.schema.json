@@ -342,6 +342,15 @@
               "inverseFieldId": "fjGNmvgq7TG"
             }
           }
+        },
+        {
+          "id": "fuZsGhNdZwZ",
+          "sdkName": "videoFileUrl",
+          "definition": {
+            "name": "Video File URL",
+            "type": "url",
+            "template": {}
+          }
         }
       ]
     },
