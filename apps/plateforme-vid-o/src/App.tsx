@@ -2,6 +2,7 @@ import { BrowserRouter, Outlet, Route, Routes, Link, useLocation } from 'react-r
 import { useEffect } from 'react';
 import { Toaster } from '@project/components/ui/sonner';
 import { SessionProvider } from './context/Session';
+import { PlayerProvider } from './context/Player';
 import Header, { MobileNav } from './components/Header';
 import HomePage from './pages/HomePage';
 import ExplorePage from './pages/ExplorePage';
@@ -34,8 +35,7 @@ function Layout() {
       </main>
       <footer className="mx-auto mb-20 max-w-[1600px] border-t border-border/50 px-4 py-8 text-xs leading-relaxed text-muted-foreground lg:px-6 xl:mb-0">
         <p>
-          © {new Date().getFullYear()} {SITE_NAME} — plateforme indépendante. Les vidéos sont lues via le lecteur officiel YouTube ;
-          les J'aime, commentaires et abonnements sont propres à {SITE_NAME}.{' '}
+          © {new Date().getFullYear()} {SITE_NAME} — plateforme indépendante. Les J'aime, commentaires et abonnements sont propres à {SITE_NAME}.{' '}
           <a href={PARTNER_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary">{PARTNER_NAME} ↗</a>{' '}
           est une entité distincte.
         </p>
@@ -59,6 +59,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <SessionProvider>
+        <PlayerProvider>
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
@@ -78,6 +79,7 @@ export default function App() {
           </Route>
         </Routes>
         <Toaster />
+        </PlayerProvider>
       </SessionProvider>
     </BrowserRouter>
   );

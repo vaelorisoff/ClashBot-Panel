@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Compass, Heart, Play, Plus, Search, Film } from 'lucide-react';
@@ -62,7 +63,13 @@ function Rail({ title, subtitle, videos, to }: { title: string; subtitle?: strin
 }
 
 export default function HomePage() {
-  const { data, loading } = useLoad(() => browse({ view: 'home' }), []);
+  const { data, loading, reload } = useLoad(() => browse({ view: 'home' }), []);
+  useEffect(() => {
+    const refresh = () => { if (document.visibilityState === 'visible') reload(true); };
+    const t = window.setInterval(refresh, 60000);
+    window.addEventListener('focus', refresh);
+    return () => { window.clearInterval(t); window.removeEventListener('focus', refresh); };
+  }, [reload]);
   const { requireAuth, profile } = useSession();
   const navigate = useNavigate();
 
@@ -101,6 +108,15 @@ export default function HomePage() {
     <div className="space-y-12">
       <Hero video={data.featured} />
 
+      <section>
+        <SectionTitle title={`Disponibles sur ${SITE_NAME}`} subtitle="Les dernières vidéos publiées par la communauté" action={
+          <Link to="/explorer" className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-primary">Tout voir <ArrowRight className="h-4 w-4" /></Link>
+        } />
+        <div className="grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+          {(data.recent ?? []).map((v) => <VideoCard key={v.id} video={v} />)}
+        </div>
+      </section>
+
       {!!data.categories?.length && (
         <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 lg:-mx-6 lg:px-6">
           <Link to="/recherche" className="flex shrink-0 items-center gap-2 rounded-full border border-border/70 px-4 py-2 text-sm text-muted-foreground transition hover:border-primary/50 hover:text-foreground">
@@ -116,7 +132,6 @@ export default function HomePage() {
 
       <Rail title="Populaires" subtitle="Les vidéos les plus aimées et regardées sur la plateforme" videos={data.popular ?? []} to="/explorer?tri=populaire" />
       <Rail title={profile ? 'Recommandé pour vous' : 'À découvrir'} subtitle={profile ? 'Selon vos goûts et votre historique' : undefined} videos={data.recommended ?? []} />
-      <Rail title="Récemment publiées" videos={data.recent ?? []} to="/explorer" />
 
       {!!data.creators?.length && (
         <section>

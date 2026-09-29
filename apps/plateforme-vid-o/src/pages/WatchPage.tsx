@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePlayer, type PlayerVideo } from '../context/Player';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Bookmark, ExternalLink, Heart, ListPlus, Pencil, Share2, Trash2, Film } from 'lucide-react';
+import { Bookmark, Heart, Play, ListPlus, Pencil, Share2, Trash2, Film } from 'lucide-react';
 import { toast } from 'sonner';
 import { browse, interact } from 'zitejs/api';
 import { Button } from '@project/components/ui/button';
@@ -11,7 +12,7 @@ import {
 import { cn } from '@project/components/lib/utils';
 import { useLoad } from '../lib/useLoad';
 import { useSession } from '../context/Session';
-import { errorMessage, formatCount, formatDate, PARTNER_NAME, SITE_NAME } from '../lib/config';
+import { errorMessage, formatCount, formatDate, SITE_NAME } from '../lib/config';
 import { UserAvatar, VideoCard, EmptyState } from '../components/VideoCard';
 import FollowButton from '../components/FollowButton';
 import Comments from '../components/Comments';
@@ -26,14 +27,27 @@ function ActionButton({ active, onClick, icon, label }: { active?: boolean; onCl
   );
 }
 
-function StandardInfo({ title }: { title: string }) {
-  const rows = [['Hébergé par', SITE_NAME], ['En lien avec', PARTNER_NAME], ['Source', 'YouTube'], ['Titre', title]];
+function VideoStage({ video }: { video: PlayerVideo }) {
+  const { current, play, setAnchor } = usePlayer();
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    setAnchor(video.id, ref.current);
+    return () => setAnchor(null, null);
+  }, [video.id, setAnchor]);
+  const active = current?.id === video.id;
   return (
-    <dl className="grid gap-1.5 rounded-xl border border-border/60 bg-background/40 p-4 text-sm">
-      {rows.map(([k, v]) => (
-        <div key={k} className="flex gap-2"><dt className="shrink-0 text-muted-foreground">{k} :</dt><dd className="font-medium">{v}</dd></div>
-      ))}
-    </dl>
+    <div ref={ref} className="relative aspect-video overflow-hidden rounded-2xl bg-black shadow-2xl ring-1 ring-border/60">
+      {!active && (
+        <button onClick={() => play(video)} aria-label={`Lire ${video.title}`} className="group absolute inset-0 h-full w-full cursor-pointer focus-visible:outline-none">
+          <img src={`https://i.ytimg.com/vi/${video.youTubeId}/maxresdefault.jpg`} onError={(e) => { e.currentTarget.src = video.thumbnailUrl; }}
+            alt="" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]" />
+          <span className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/20" />
+          <span className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-2xl shadow-primary/40 transition group-hover:scale-110">
+            <Play className="ml-1 h-8 w-8 fill-current" />
+          </span>
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -84,17 +98,7 @@ export default function WatchPage() {
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
       <div className="min-w-0 space-y-6">
-        <div className="overflow-hidden rounded-2xl bg-black shadow-2xl ring-1 ring-border/60">
-          <div className="aspect-video">
-            <iframe
-              src={`https://www.youtube.com/embed/${v.youTubeId}?rel=0&modestbranding=1`}
-              title={v.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              className="h-full w-full"
-            />
-          </div>
-        </div>
+        <VideoStage video={v} />
 
         <div>
           <h1 className="text-2xl font-extrabold leading-tight sm:text-3xl">{v.title}</h1>
@@ -126,13 +130,7 @@ export default function WatchPage() {
         <div className="space-y-4 rounded-2xl border border-border/60 bg-card/70 p-5">
           <p className="text-sm"><span className="text-muted-foreground">Créateur original :</span> <span className="font-semibold">{v.creatorName}</span></p>
           {v.description && <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">{v.description}</p>}
-          <StandardInfo title={v.title} />
-          <div className="flex flex-wrap items-center gap-2 pt-1">
-            <a href={`https://www.youtube.com/watch?v=${v.youTubeId}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary">
-              Voir sur YouTube <ExternalLink className="h-3 w-3" />
-            </a>
-            <span className="text-xs text-muted-foreground/60">· Les J'aime et commentaires affichés ici sont propres à {SITE_NAME}.</span>
-          </div>
+          <p className="text-xs text-muted-foreground/70">Les J'aime et commentaires affichés ici sont propres à {SITE_NAME}.</p>
           {canManage && (
             <div className="flex gap-2 border-t border-border/60 pt-4">
               <Button variant="secondary" size="sm" asChild><Link to={`/publier/${v.id}`}><Pencil className="mr-1.5 h-4 w-4" />Modifier</Link></Button>
