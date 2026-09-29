@@ -49,6 +49,8 @@ export default createEndpoint({
   }),
   execute: async ({ input, context }) => {
     const me = context.user.id;
+    const myProfile = await zite.profiles.findOne({ filters: { user: me } });
+    if (myProfile?.suspended) throw forbid('Votre compte est suspendu. Contactez un administrateur.');
     const need = <T,>(v: T | undefined, label: string): T => {
       if (v === undefined || v === '') throw bad(`${label} manquant.`);
       return v;

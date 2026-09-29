@@ -140,9 +140,8 @@ export default function WatchPage() {
 
         <div className="space-y-4 rounded-2xl border border-border/60 bg-card/70 p-5">
           <p className="text-sm"><span className="text-muted-foreground">Créateur original :</span> <span className="font-semibold">{v.creatorName}</span></p>
-          {v.description && <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">{v.description}</p>}
+          {v.description && <div><h2 className="mb-1 text-sm font-semibold">Description</h2><p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">{v.description}</p></div>}
           <StandardInfo title={v.title} hasYouTube={!!v.youTubeId} />
-          <p className="text-xs text-muted-foreground/70">Les J'aime et commentaires affichés ici sont propres à {SITE_NAME}.</p>
           {canManage && (
             <div className="flex gap-2 border-t border-border/60 pt-4">
               <Button variant="secondary" size="sm" asChild><Link to={`/publier/${v.id}`}><Pencil className="mr-1.5 h-4 w-4" />Modifier</Link></Button>

@@ -105,6 +105,7 @@ export type ProfilesRecordType = {
   role?: "Utilisateur" | "Administrateur" | string;
   /** Read-only. "Created At". Auto-set when record was created (ISO 8601) */
   createdAt?: string;
+  suspended?: boolean;
 };
 
 /** What you may write when creating or updating a record in the "Profiles" table. */
@@ -115,6 +116,7 @@ export type ProfilesRecordInput = {
   avatarUrl: string | null;
   bio: string | null;
   role: "Utilisateur" | "Administrateur" | string | null;
+  suspended: string | boolean | null;
 };
 
 /** A record in the "Categories" table, as it is read back. */

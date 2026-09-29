@@ -91,6 +91,15 @@
               "displayTimeZone": false
             }
           }
+        },
+        {
+          "id": "f1C8mTeVHgM",
+          "sdkName": "suspended",
+          "definition": {
+            "name": "Suspended",
+            "type": "checkbox",
+            "template": {}
+          }
         }
       ]
     },
