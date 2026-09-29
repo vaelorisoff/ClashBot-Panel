@@ -9,7 +9,7 @@ import {
 import { cn } from '@project/components/lib/utils';
 import { useSession } from '../context/Session';
 import { UserAvatar } from './VideoCard';
-import { PARTNER_NAME, PARTNER_URL, SITE_NAME } from '../lib/config';
+import { SITE_NAME } from '../lib/config';
 
 export const NAV = [
   { to: '/', label: 'Accueil', icon: Home },
@@ -93,16 +93,7 @@ export default function Header() {
   return (
     <header className="glass sticky top-0 z-40 border-b border-border/50">
       <div className="mx-auto flex h-16 max-w-[1600px] items-center gap-3 px-4 lg:px-6">
-        <div className="flex shrink-0 flex-col justify-center">
-          <a
-            href={PARTNER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Site externe — Astreyon Records est distinct de cette plateforme"
-            className="mb-0.5 w-fit text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70 transition hover:text-primary"
-          >
-            {PARTNER_NAME} ↗
-          </a>
+        <div className="flex shrink-0 items-center">
           <Logo />
         </div>
 

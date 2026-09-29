@@ -32,7 +32,7 @@ function Layout() {
       <main className="mx-auto max-w-[1600px] px-4 pb-28 pt-6 lg:px-6 xl:pb-16">
         <Outlet />
       </main>
-      <footer className="mx-auto hidden max-w-[1600px] border-t border-border/50 px-6 py-8 text-xs text-muted-foreground xl:block">
+      <footer className="mx-auto mb-20 max-w-[1600px] border-t border-border/50 px-4 py-8 text-xs leading-relaxed text-muted-foreground lg:px-6 xl:mb-0">
         <p>
           © {new Date().getFullYear()} {SITE_NAME} — plateforme indépendante. Les vidéos sont lues via le lecteur officiel YouTube ;
           les J'aime, commentaires et abonnements sont propres à {SITE_NAME}.{' '}
