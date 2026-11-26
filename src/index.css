@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Auto-restored theme variables */
+    --shadow-2xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) rgb(var(--shadow-rgb) / calc(var(--shadow-opacity) * 0.5));
+    --shadow-xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) rgb(var(--shadow-rgb) / calc(var(--shadow-opacity) * 0.5));
+    --shadow-sm: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) rgb(var(--shadow-rgb) / var(--shadow-opacity)), var(--shadow-x) calc(var(--shadow-y) / 4) calc(var(--shadow-blur) / 2) calc(var(--shadow-spread) - 1px) rgb(var(--shadow-rgb) / var(--shadow-opacity));
+    --shadow-md: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) rgb(var(--shadow-rgb) / var(--shadow-opacity)), var(--shadow-x) calc(var(--shadow-y) / 2) calc(var(--shadow-blur) * 2) calc(var(--shadow-spread) - 1px) rgb(var(--shadow-rgb) / var(--shadow-opacity));
+    --shadow-lg: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) rgb(var(--shadow-rgb) / var(--shadow-opacity)), var(--shadow-x) var(--shadow-y) calc(var(--shadow-blur) * 3) calc(var(--shadow-spread) - 1px) rgb(var(--shadow-rgb) / var(--shadow-opacity));
+    --shadow-xl: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) rgb(var(--shadow-rgb) / var(--shadow-opacity)), var(--shadow-x) calc(var(--shadow-y) * 2) calc(var(--shadow-blur) * 5) calc(var(--shadow-spread) - 1px) rgb(var(--shadow-rgb) / var(--shadow-opacity));
+    --shadow-2xl: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) rgb(var(--shadow-rgb) / calc(var(--shadow-opacity) * 2.5));
+    --shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) rgb(var(--shadow-rgb) / var(--shadow-opacity)), var(--shadow-x) calc(var(--shadow-y) / 2) calc(var(--shadow-blur) / 2) calc(var(--shadow-spread) - 1px) rgb(var(--shadow-rgb) / var(--shadow-opacity));
+
+    --background: 228 20% 97%;
+    --foreground: 230 25% 12%;
+    --muted: 228 16% 93%;
+    --muted-foreground: 228 10% 42%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 25% 12%;
+    --border: 228 16% 88%;
+    --input: 228 16% 86%;
+    --card: 0 0% 100%;
+    --card-foreground: 230 25% 12%;
+    --primary: 349 82% 54%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 228 16% 93%;
+    --secondary-foreground: 230 25% 14%;
+    --accent: 228 18% 92%;
+    --accent-foreground: 230 25% 12%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 60% 38%;
+    --warning: 38 92% 48%;
+    --info: 210 90% 52%;
+    --ring: 349 82% 54%;
+    --radius: 0.75rem;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 230 15% 30%;
+    --sidebar-primary: 349 82% 54%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 228 18% 94%;
+    --sidebar-accent-foreground: 230 25% 12%;
+    --sidebar-border: 228 16% 90%;
+    --sidebar-ring: 349 82% 54%;
+    --chart-1: 349 82% 58%;
+    --chart-2: 210 90% 60%;
+    --chart-3: 152 60% 45%;
+    --chart-4: 38 92% 55%;
+    --chart-5: 268 70% 65%;
+    --discord-bg: 223 7% 20%;
+    --discord-embed: 220 7% 17%;
+    --discord-text: 210 9% 87%;
+    --discord-muted: 214 8% 61%;
+    --discord-link: 197 100% 48%;
+    --font-sans: 'Geist', 'Helvetica Neue', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --shadow-x: 0px;
+    --shadow-y: 1px;
+    --shadow-blur: 2px;
+    --shadow-spread: 0px;
+    --shadow-opacity: 0.06;
+    --shadow-color: #000000;
+    --shadow-rgb: 0 0 0;
+  }
+
+  .dark {
+    --background: 230 22% 6%;
+    --foreground: 225 20% 94%;
+    --muted: 230 18% 12%;
+    --muted-foreground: 228 10% 58%;
+    --popover: 230 20% 9%;
+    --popover-foreground: 225 20% 94%;
+    --border: 230 15% 15%;
+    --input: 230 15% 17%;
+    --card: 230 20% 8.5%;
+    --card-foreground: 225 20% 94%;
+    --primary: 349 85% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 16% 13%;
+    --secondary-foreground: 225 20% 92%;
+    --accent: 230 16% 14%;
+    --accent-foreground: 225 20% 94%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 55% 48%;
+    --warning: 38 92% 56%;
+    --info: 210 90% 62%;
+    --ring: 349 85% 60%;
+    --sidebar-background: 230 22% 7.5%;
+    --sidebar-foreground: 228 12% 70%;
+    --sidebar-primary: 349 85% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 16% 12%;
+    --sidebar-accent-foreground: 225 20% 94%;
+    --sidebar-border: 230 15% 13%;
+    --sidebar-ring: 349 85% 60%;
+  }
+
+  * { @apply border-border; }
+  body { @apply bg-background font-sans text-foreground antialiased; font-feature-settings: 'ss01', 'cv11'; }
+  ::selection { background: hsl(var(--primary) / 0.3); }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+  .glass { background: hsl(var(--background) / 0.78); backdrop-filter: blur(14px) saturate(1.4); }
+  .text-success { color: hsl(var(--success)); }
+  .text-warning { color: hsl(var(--warning)); }
+  .text-info { color: hsl(var(--info)); }
+  .bg-success { background: hsl(var(--success)); }
+  .bg-warning { background: hsl(var(--warning)); }
+  .bg-info { background: hsl(var(--info)); }
+}
