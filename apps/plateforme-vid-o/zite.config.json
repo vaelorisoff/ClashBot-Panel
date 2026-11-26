@@ -4,7 +4,7 @@
   "authentication": {
     "signup": "open",
     "authenticationMethods": {
-      "magicLink": true,
+      "emailSignIn": true,
       "googleSignIn": true,
       "sso": false
     }

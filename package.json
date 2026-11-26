@@ -9,6 +9,6 @@
     "typecheck": "zitejs check"
   },
   "dependencies": {
-    "zitejs": "0.9.120"
+    "zitejs": "0.10.26"
   }
 }
