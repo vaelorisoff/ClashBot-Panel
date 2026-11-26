@@ -1,12 +1,4 @@
 {
-  "project": {
-    "name": "Social Video Platform",
-    "basePublicIdentifier": "064ebdccb45a26b7"
-  },
-  "integrations": {
-    "github": {
-      "type": "github",
-      "connectionId": "svc_590479"
-    }
-  }
+  "id": "qhrrpgfxfl",
+  "accessMode": "external"
 }
